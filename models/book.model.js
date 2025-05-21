@@ -1,0 +1,40 @@
+const mongoose=require('mongoose');
+const booksModel=mongoose.Schema({
+    title:{
+        type:String,
+        required:true,
+        trim:true,
+        unique:true,
+    },
+    author:{
+        type:String,
+        required:true,
+        trim:true,
+        unique:true,
+    },
+    coverImages:[
+        {
+            type:String,
+            trim:true,
+        }
+    ],
+    genre:{
+        type:String,
+        trim:true,
+    },
+    description:{
+        type:String,
+        trim:true,
+    },
+    publishedDate:{
+        type:Number
+    },
+    createdBy:{
+        type:mongoose.Types.ObjectId,
+        ref:"User"
+    }
+});
+booksModel.index({"title":"text","author":"text"});
+booksModel.index({genre:1});
+const Book=mongoose.model("Book",booksModel);
+module.exports=Book;
